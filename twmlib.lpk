@@ -12,11 +12,15 @@
       </SearchPaths>
     </CompilerOptions>
     <Version Major="1"/>
-    <Files Count="1">
+    <Files Count="2">
       <Item1>
         <Filename Value="cmtutil.pas"/>
         <UnitName Value="cmtutil"/>
       </Item1>
+      <Item2>
+        <Filename Value="rtfutil.pas"/>
+        <UnitName Value="rtfutil"/>
+      </Item2>
     </Files>
     <RequiredPkgs Count="1">
       <Item1>

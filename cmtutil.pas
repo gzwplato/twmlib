@@ -30,7 +30,7 @@ begin
   q := TSQLQuery.Create(conn);
   q.SQLConnection := conn;
   q.Transaction := tx;
-  q.SQL.Text := 'INSERT INTO bible_refs (bi, ci, fvi, tvi, content_type) VALUES (:bi, :ci, :fvi, :tvi, ''rtf'');';
+  q.SQL.Text := 'INSERT INTO bible_refs (bi, ci, fvi, tvi) VALUES (:bi, :ci, :fvi, :tvi);';
   q.Params.ParamByName('bi').AsInteger := bi;
   q.Params.ParamByName('ci').AsInteger := ci;
   q.Params.ParamByName('fvi').AsInteger := fvi;
@@ -47,6 +47,8 @@ begin
   q.ExecSQL;
   q.Close;
   q.Free;
+
+  conn.ExecuteDirect('INSERT INTO content_search (topic_id) select max(topic_id) from bible_refs;');
 end;
 
 procedure TCmtUtil.createDB(filename: String);
@@ -67,11 +69,12 @@ begin
     title := ExtractFileName(filename);
     title := title.Substring(0, title.LastIndexOf('.'));
     conn.ExecuteDirect('INSERT INTO config(name,value) VALUES (''title'','''+title+''')');
-    conn.ExecuteDirect('INSERT INTO config(name,value) VALUES (''abbreviation'','''+title+''')');
+    conn.ExecuteDirect('INSERT INTO config(name,value) VALUES (''abbrev'','''+title+''')');
     conn.ExecuteDirect('INSERT INTO config(name,value) VALUES (''type'',''2'')');
     conn.ExecuteDirect('INSERT INTO config(name,value) VALUES (''schema.version'',''1'')');
     conn.ExecuteDirect('INSERT INTO config(name,value) VALUES (''search.index.ver'',''4'')');
     conn.ExecuteDirect('INSERT INTO config(name,value) VALUES (''user'',''0'')');
+    conn.ExecuteDirect('INSERT INTO config(name,value) VALUES (''content.type'',''rtf'')');
   end;
 end;
 

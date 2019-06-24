@@ -8,7 +8,7 @@ unit twmlib;
 interface
 
 uses
-  cmtutil, LazarusPackageIntf;
+  cmtutil, rtfutil, LazarusPackageIntf;
 
 implementation
 
