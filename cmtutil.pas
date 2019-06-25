@@ -48,7 +48,7 @@ begin
   q.Close;
   q.Free;
 
-  conn.ExecuteDirect('INSERT INTO content_search (topic_id) select max(topic_id) from bible_refs;');
+  //conn.ExecuteDirect('INSERT INTO content_search (topic_id) select max(topic_id) from bible_refs;');
 end;
 
 procedure TCmtUtil.createDB(filename: String);
@@ -73,7 +73,7 @@ begin
     conn.ExecuteDirect('INSERT INTO config(name,value) VALUES (''type'',''2'')');
     conn.ExecuteDirect('INSERT INTO config(name,value) VALUES (''schema.version'',''1'')');
     conn.ExecuteDirect('INSERT INTO config(name,value) VALUES (''search.index.ver'',''4'')');
-    conn.ExecuteDirect('INSERT INTO config(name,value) VALUES (''user'',''0'')');
+    conn.ExecuteDirect('INSERT INTO config(name,value) VALUES (''user'',''1'')');
     conn.ExecuteDirect('INSERT INTO config(name,value) VALUES (''content.type'',''rtf'')');
   end;
 end;
@@ -99,7 +99,7 @@ procedure TCmtUtil.createDBSchema();
 begin
   conn.ExecuteDirect('CREATE TABLE config(name text, value text);');
   conn.ExecuteDirect('CREATE TABLE content(topic_id integer primary key, data BLOB, data2 blob);');
-  conn.ExecuteDirect('CREATE TABLE content_search(topic_id integer primary key, data blob);');
+  //conn.ExecuteDirect('CREATE TABLE content_search(topic_id integer primary key, data blob);');
   conn.ExecuteDirect('CREATE TABLE bible_refs(topic_id integer primary key AUTOINCREMENT, bi integer, ci integer, fvi integer, tvi integer, content_type text);');
   conn.ExecuteDirect('CREATE INDEX idx_bible_refs on bible_refs(bi, ci, fvi, tvi);');
   conn.ExecuteDirect('CREATE INDEX idx_bible_refs_bi_ci on bible_refs(bi, ci);');
